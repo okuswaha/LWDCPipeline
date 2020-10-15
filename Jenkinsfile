@@ -1,4 +1,7 @@
 pipeline {
+    environment {
+        customImage = ''
+    }
     agent any
     stages {
         stage('Validate Input') {
@@ -6,25 +9,29 @@ pipeline {
                 echo "Input Validated"
             }
         }
-        stage('gitSCM') {
+        stage('Checkout Repo') {
             steps {
                 checkout([$class: 'GitSCM', branches: [[name: '*/main']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'github', url: 'https://github.com/okuswaha/maven-tool.git']]])
-                echo "Checked Out code from GitHub"
+                echo "Checked out code from GitHub"
             }
         }
-        stage('Build Docker Image and Tag') {
+        stage('Build Docker Image') {
             steps {
-                withDockerRegistry(credentialsId: 'dockerhub-okuswaha', url: 'https://hub.docker.com/repository/docker/okuswaha/maven-tool') {
-                    def customImage = docker.build('maven-tool')
-                    customImage.push("latest")
-                    sh "docker rmi --force \$(docker images -q ${customImage.id} | uniq)"
-}
-                    echo "Built and tagged a docker image"
+                script {
+                    customImage = docker.build maven-tool
+                    echo "Built a docker image"
+                }
             }
         }
-        stage('Publish') {
+        stage('Tag Docker image and publish') {
             steps {
-                echo "Published a docker image to Dockerhub"
+                script {
+                    withDockerRegistry(credentialsId: 'dockerhub-okuswaha', url: 'https://hub.docker.com/repository/docker/okuswaha/maven-tool') {
+                        customImage.push("latest")
+                        sh "docker rmi --force \$(docker images -q ${customImage.id} | uniq)"
+                    }
+                }
+                echo "Tagged and Published a docker image to Dockerhub"
             }
         }
     }
