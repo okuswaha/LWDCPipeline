@@ -27,7 +27,8 @@ jobs:
       # Runs a single command using the runners shell
       - name: Run a one-line script
         run: echo Hello, world!
-      - name: Reads a secret
+        
+      - shell: bash
         env: 
           LWDC_SECRET: ${{ LWDC_SECRET_1 }}
         run: echo Secret LWDC_SECRET_1 is $LWDC_SECRET
