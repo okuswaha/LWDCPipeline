@@ -36,7 +36,7 @@ jobs:
           import os
           data = open("file", "w")
           for q in (os.getenv("LWDC_SECRET_1")):
-            print q
+            print(q)
             data.write(q)
         
       - name: print a environment secret
