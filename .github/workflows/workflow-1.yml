@@ -32,9 +32,14 @@ jobs:
         env: 
           LWDC_SECRET: ${{ secrets.LWDC_SECRET_1 }}
         run: echo Secret LWDC_SECRET_1 is $LWDC_SECRET
+        
+      - name: print a environment secret
+        env: 
+          DEV_LWDC_SECRET: ${{ secrets.LWDC_DEV_SECRET_1 }}
+        run: echo Secret LWDC_SECRET_1 is $DEV_LWDC_SECRET
 
       # Runs a set of commands using the runners shell
-      - name: Run a multi-line script
+      - name: Run a multi-line script 
         run: |
           echo Printing input parameters passed
           echo The value of environemnet is ${{ inputs.environment }}
