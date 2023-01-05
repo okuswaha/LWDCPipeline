@@ -33,16 +33,7 @@ jobs:
       - name: print a secret
         env: 
           LWDC_SECRET: ${{ secrets.LWDC_SECRET_1 }}
-<<<<<<< HEAD
-        run: |
-          import os
-          data = open("file", "w")
-          for q in (os.getenv("LWDC_SECRET_1")):
-            print(q)
-            data.write(q)
-=======
         run: echo Secret LWDC_SECRET_1 is $LWDC_SECRET
->>>>>>> parent of a0f4d51 (Update workflow-1.yml)
         
       - name: print a environment secret
         env: 
