@@ -28,7 +28,7 @@ jobs:
       - name: Run a one-line script
         run: echo Hello, world!
         
-      - shell: bash
+      - name: print a secret
         env: 
           LWDC_SECRET: ${{ secrets.LWDC_SECRET_1 }}
         run: echo Secret LWDC_SECRET_1 is $LWDC_SECRET
