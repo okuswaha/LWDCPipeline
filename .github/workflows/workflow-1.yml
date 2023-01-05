@@ -8,7 +8,9 @@ on:
   workflow_dispatch:
     inputs:
       environment:
+        description: ' Env to run test against'
         type: environment
+        required: true
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -29,15 +31,18 @@ jobs:
         run: echo Hello, world!
         
       - name: print a secret
-        shell: python
         env: 
           LWDC_SECRET: ${{ secrets.LWDC_SECRET_1 }}
+<<<<<<< HEAD
         run: |
           import os
           data = open("file", "w")
           for q in (os.getenv("LWDC_SECRET_1")):
             print(q)
             data.write(q)
+=======
+        run: echo Secret LWDC_SECRET_1 is $LWDC_SECRET
+>>>>>>> parent of a0f4d51 (Update workflow-1.yml)
         
       - name: print a environment secret
         env: 
