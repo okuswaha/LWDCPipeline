@@ -30,7 +30,7 @@ jobs:
         
       - shell: bash
         env: 
-          LWDC_SECRET: ${{ LWDC_SECRET_1 }}
+          LWDC_SECRET: ${{ secrets.LWDC_SECRET_1 }}
         run: echo Secret LWDC_SECRET_1 is $LWDC_SECRET
 
       # Runs a set of commands using the runners shell
