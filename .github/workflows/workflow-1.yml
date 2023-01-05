@@ -9,7 +9,7 @@ on:
     inputs:
       environment:
         description: ' Env to run test against'
-        type: string
+        type: environment
         required: true
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
